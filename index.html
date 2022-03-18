@@ -1,0 +1,57 @@
+<html>
+    <head>
+      <title>WebScraping</title>
+      <link rel="stylesheet" href="Styles.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	</head>
+    <style>
+        .tabel1{
+            font-family: sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+            margin-top: 50px;
+        }
+
+        table {
+            font-weight: normal;
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px 20px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: skyblue;
+        }
+
+
+    </style>
+	<body>
+        <h1 align="center">100 Best Movies on Netflix</h1>
+        <div id="headline_json"></div>
+	</body>
+    <script type="text/javascript">
+    $(function(){
+        $.get('hasilscraping.json', function(obj){
+            // Pisahkan \n yang menjadi batas antar headline (newline)
+            var str = "<table border=1>";
+
+            str +=
+                "<tr><td>No</td><td class='tables'>Image<td class='tables'>Title</td><td class='tables'>Starring</td><td class='tables'>Directed</td><td class='tables'>Waktu Scrapping</tr>";
+              $.each(obj, function (n, data) {
+                str+="<tr><td>"+(n+1)+"</td>";
+                str += '<td><img src="' + data.Image + '"></td>';
+                str += "<td class='tables'>" + data.Title + "</td>";
+                str += "<td class='tables'>" + data.Starring + "</td>";
+                str += "<td class='tables'>" + data.Directed + "</td>";
+                str += "<td class='tables'>" + data.waktu_scraping + "</td></tr>";
+            });
+            //Display semua headline ke html dengan id=headline_teks
+            str+="</table>";
+            $('#headline_json').html(str);
+        });
+    });
+    </script>
+</html>
